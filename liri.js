@@ -31,44 +31,45 @@ if (input === "spotify-this-song") {
 var spotify = new Spotify(keys.spotify);
 var song = process.argv.slice(3).join(" ");
 
-// axios
-// .get("https://api.spotify.com/v1/search/q=" + song + "&type=track")
-// .then(function (axiosResponse) {
-//     //Use to look at whole object.
-//     console.log(axiosResponse.data);
-// })
+if (song === ""){
+    song = "The Sign by Ace of Base";
+}
 
 spotify
     .search({
         type: 'track',
         query: song,
-        limit: 1
+        limit: 10
     }, function(err, data) {
         if (err) {
           return console.log('Error occurred: ' + err);
         }
        
-        var artist = data.tracks.items[0].artists[0].name;
-        var songName = data.tracks.items[0].name;
-        var previewLink = data.tracks.items[0].preview_url;
-        var album = data.tracks.items[0].album.name;
+        const tracks= data.tracks.items;
 
-        console.log(artist + " sings " + songName);
-        console.log("Click for a preview! " + previewLink);
-        console.log(songName + "  is on the album " + album);
+        for(let i = 0; i < tracks.length; i++){
+            const artistName = tracks[i].album.artists[0].name;
+            const songName = tracks[i].name;
+            const previewLink = tracks[i].preview_url; 
+            const album = tracks[i].album.name;
+            console.log("---------------");
+            console.log(artistName + " -- " + songName);
+            console.log("Listen Here! - " + previewLink);
+            console.log("Album: " + album);
+        }
+        
 
       });
 
 
 }
 
-var movie = process.argv.slice(3).join(" ");
-
 if (input === "movie-this") {
+var movie = process.argv.slice(3).join(" ");
     axios
     .get("https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy")
     .then(function (ombdResponse) {
-        console.log("Title: " + ombdResponse.data.Title);
+        console.log("Title of Movie: " + ombdResponse.data.Title);
         console.log("Release Year: " + ombdResponse.data.Released);
         console.log("IMDB Rating: " + ombdResponse.data.Ratings[0].Value);
         console.log("Rotten Tomatoes Rating: " + ombdResponse.data.Ratings[1].Value);
