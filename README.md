@@ -39,6 +39,7 @@ LIRI is a Language Interpretation and Recognition Interface
   node liri.js <concert-this> <spotify-this-song> <movie-this> <do-what-it-says>
   ```
 * Here is a preview of liri in use.
+* I apologize in advance for how slow this gif is.
 
 ![liri in use](liri-preview.gif)
 
