@@ -108,5 +108,13 @@ function doIt () {
         });
     }
 
+    if(input){
+
+        fs.appendFile("log.txt", input + " - " + search + "\r", function(){
+
+            console.log(input + " " + search);
+        })
+    }
+
 }
 doIt();
